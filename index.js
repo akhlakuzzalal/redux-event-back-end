@@ -26,11 +26,8 @@ async function run(){
          * add user to database
          */
         app.post('/user', async(req, res) => {
-			const data = req.body;
-			const role = 'customer';
-			const finalData = {...data, role};
-			const result = await user_collection.insertOne(finalData);
-			res.json(result);
+			
+			    res.json('result');
         });
 
 
@@ -44,7 +41,7 @@ run().catch(console.dir);
 
 
 app.get('/', (req, res) => {
-  res.send('SunBox Running!');
+  res.send('Event Managment Running!');
 })
 
 app.listen(port, () => {
