@@ -20,23 +20,23 @@ app.use(express.json());
 async function run() {
   try {
     await client.connect();
-    console.log("Database connection", new Date());
     const db = client.db("eventManagement");
     const user_collection = db.collection("user");
 
-        /**
-         * add user to database
-         */
-        app.post('/user', async(req, res) => {
-			
-			    res.json('result');
-        });
+    /**
+     * add user to database
+     */
+    app.post('/user', async (req, res) => {
 
+      res.json('result');
+    });
 
-    }
-    finally{
-        // await client.close();
-    }
+    // Akhlak
+
+  }
+  finally {
+    // await client.close();
+  }
 }
 run().catch(console.dir);
 
