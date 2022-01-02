@@ -20,29 +20,31 @@ app.use(express.json());
 async function run() {
   try {
     await client.connect();
-    console.log("Database connection");
+    console.log("Database connection", new Date());
     const db = client.db("eventManagement");
     const user_collection = db.collection("user");
 
-    /**
-     * add user to database
-     */
-    app.post("/user", async (req, res) => {
-      const data = req.body;
-      const role = "customer";
-      const finalData = { ...data, role };
-      const result = await user_collection.insertOne(finalData);
-      res.json(result);
-    });
-  } finally {
-    // await client.close();
-  }
+        /**
+         * add user to database
+         */
+        app.post('/user', async(req, res) => {
+			
+			    res.json('result');
+        });
+
+
+    }
+    finally{
+        // await client.close();
+    }
 }
 run().catch(console.dir);
 
-app.get("/", (req, res) => {
-  res.send("SunBox Running!");
-});
+
+
+app.get('/', (req, res) => {
+  res.send('Event Managment Running!');
+})
 
 app.listen(port, () => {
   console.log(`listening port: ${port}`);
