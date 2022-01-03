@@ -23,28 +23,28 @@ async function run() {
     const db = client.db("eventManagement");
     const user_collection = db.collection("user");
 
-    /**
-     * add user to database
-     */
-    app.post('/user', async (req, res) => {
+    // add user database 
 
-      res.json('result');
+    app.post("/user", async (req, res) => {
+      const data = req.body;
+      const result = await user_collection.insertOne(data);
+      res.json(result);
     });
 
-    // Akhlak
+    app.get('/users', async(req,res)=>{
+      const result = await user_collection.find({}).toArray();
+      res.send(result);
+    })
 
-  }
-  finally {
+  } finally {
     // await client.close();
   }
 }
 run().catch(console.dir);
 
-
-
-app.get('/', (req, res) => {
-  res.send('Event Managment Running!');
-})
+app.get("/", (req, res) => {
+  res.send("Event Management Running!");
+});
 
 app.listen(port, () => {
   console.log(`listening port: ${port}`);
