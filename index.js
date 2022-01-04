@@ -45,6 +45,8 @@ async function run() {
       res.data(result);
     });
 
+    // get to service
+    
     app.get("/service", async (req, res) => {
       const result = await add_service.find({}).toArray();
       res.send(result);
