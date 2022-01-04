@@ -42,11 +42,11 @@ async function run() {
     app.post("/service", async (req, res) => {
       const data = req.body;
       const result = await add_service.insertOne(data);
-      res.data(result);
+      res.json(result);
     });
 
     // get to service
-    
+
     app.get("/service", async (req, res) => {
       const result = await add_service.find({}).toArray();
       res.send(result);
