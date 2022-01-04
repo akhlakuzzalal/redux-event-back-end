@@ -47,6 +47,15 @@ async function run() {
       res.send(result);
     });
 
+    // exact email order
+
+    app.get('/order', async (req, res) => {
+      const email = req.query.email;
+      const filter = { email }
+      const result = await order_collection.findOne(filter);
+      res.send(result)
+    })
+
     // add user database
 
     app.post("/user", async (req, res) => {
