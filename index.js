@@ -22,8 +22,9 @@ async function run() {
     await client.connect();
     const db = client.db("eventManagement");
     const user_collection = db.collection("user");
+    const add_service = db.collection("service");
 
-    // add user database 
+    // add user database
 
     app.post("/user", async (req, res) => {
       const data = req.body;
@@ -31,11 +32,23 @@ async function run() {
       res.json(result);
     });
 
-    app.get('/users', async(req,res)=>{
+    app.get("/users", async (req, res) => {
       const result = await user_collection.find({}).toArray();
       res.send(result);
-    })
+    });
 
+    // add to service
+
+    app.post("/service", async (req, res) => {
+      const data = req.body;
+      const result = await add_service.insertOne(data);
+      res.data(result);
+    });
+
+    app.get("/service", async (req, res) => {
+      const result = await add_service.find({}).toArray();
+      res.send(result);
+    });
   } finally {
     // await client.close();
   }
