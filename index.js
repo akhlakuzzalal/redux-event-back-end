@@ -2,6 +2,8 @@ const express = require("express");
 require("dotenv").config();
 const { MongoClient } = require("mongodb");
 const ObjectId = require('mongodb').ObjectId;
+const stripe = require("stripe")(process.env.STRIPE_SECRETE);
+
 
 const app = express();
 const cors = require("cors");
@@ -66,6 +68,22 @@ async function run() {
     app.get("/service", async (req, res) => {
       const result = await add_service.find({}).toArray();
       res.send(result);
+    });
+
+
+    // Stripe BAckend
+    app.post("/create-payment-intent", async (req, res) => {
+      const items = req.body;
+      // Create a PaymentIntent with the order amount and currency
+      const paymentIntent = await stripe.paymentIntents.create({
+        amount: items.price * 100,
+        currency: "usd",
+        automatic_payment_methods: {
+          enabled: true,
+        }
+      });
+
+      res.json({ clientSecret: paymentIntent.client_secret });
     });
   } finally {
     // await client.close();
