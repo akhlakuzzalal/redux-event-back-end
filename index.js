@@ -52,13 +52,20 @@ async function run() {
       res.json(result);
     });
 
-    // single api
+    // single service
 
     app.get("/service/:id", async (req, res) => {
       const id = req.params.id;
       const cursor = { _id: ObjectId(id) };
       const result = await add_service.findOne(cursor);
       res.json(result);
+    });
+
+    app.delete("/service/:id", async (req, res) => {
+      const id = req.params.id;
+      const filter = { _id: ObjectId(id) };
+      const result = await add_service.deleteOne(filter);
+      res.send(result);
     });
 
     // get to service
