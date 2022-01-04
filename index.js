@@ -52,6 +52,15 @@ async function run() {
       res.json(result);
     });
 
+    // single api
+
+    app.get("/service/:id", async (req, res) => {
+      const id = req.params.id;
+      const cursor = { _id: ObjectId(id) };
+      const result = await add_service.findOne(cursor);
+      res.json(result);
+    });
+
     // get to service
 
     app.get("/service", async (req, res) => {
