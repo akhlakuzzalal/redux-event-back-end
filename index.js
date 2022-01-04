@@ -1,7 +1,7 @@
 const express = require("express");
 require("dotenv").config();
 const { MongoClient } = require("mongodb");
-// const ObjectId = require('mongodb').ObjectId;
+const ObjectId = require('mongodb').ObjectId;
 
 const app = express();
 const cors = require("cors");
@@ -30,6 +30,13 @@ async function run() {
       const data = req.body;
       const result = await user_collection.insertOne(data);
       res.json(result);
+    });
+
+    app.delete("/user/:id", async (req, res) => {
+      const id = req.params.id;
+      const filter = { _id: ObjectId(id) };
+      const result = await user_collection.deleteOne(filter);
+      res.send(result);
     });
 
     app.get("/users", async (req, res) => {
