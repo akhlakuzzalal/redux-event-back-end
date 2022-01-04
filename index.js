@@ -23,6 +23,27 @@ async function run() {
     const db = client.db("eventManagement");
     const user_collection = db.collection("user");
     const add_service = db.collection("service");
+    const order_collection = db.collection("order");
+
+    // order api start
+
+    app.post("/order", async (req, res) => {
+      const data = req.body;
+      const result = await order_collection.insertOne(data);
+      res.json(result);
+    });
+
+    app.get('/order', async (req, res) => {
+      const result = await order_collection.find({}).toArray();
+      res.send(result)
+    })
+
+    app.delete("/order/:id", async (req, res) => {
+      const id = req.params.id;
+      const filter = { _id: ObjectId(id) };
+      const result = await order_collection.deleteOne(filter);
+      res.send(result);
+    });
 
     // add user database
 
